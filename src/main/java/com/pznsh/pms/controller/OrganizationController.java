@@ -1,9 +1,12 @@
 package com.pznsh.pms.controller;
 
+import com.alibaba.fastjson.JSONObject;
+import com.pznsh.pms.domain.Organization;
 import com.pznsh.pms.service.OrganizationService;
 import com.pznsh.pms.util.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,39 +14,38 @@ import org.springframework.web.bind.annotation.RestController;
  * 机构控制类
  */
 @RestController
-@RequestMapping("/Organization")
+@RequestMapping("/organization")
 @Slf4j
 public class OrganizationController {
     @Autowired
     private OrganizationService organizationService;
-    @RequestMapping("/getAllOrganization")
+    @RequestMapping("/getallorganization")
     public Result getAllOrganization(){
         log.info("接收到请求：查询所有机构");
         return organizationService.getAllOrganization();
     }
-    @RequestMapping("/getOrganizationById")
-    public Result getOrganizationById(String id){
-        log.info("接收到请求：根据id查询机构。id="+id);
-        return organizationService.getOrganizationByKV("id",id);
+
+    @RequestMapping("/getorganizationbykv")
+    public Result getOrganizationByKV(@RequestBody JSONObject jsonParam) {
+        log.info("接收到查询机构请求：key=" + jsonParam.getString("key") + "&value=" + jsonParam.getString("value"));
+        return organizationService.getOrganizationByKV(jsonParam.getString("key"), jsonParam.getString("value"));
     }
-    @RequestMapping("/getOrganizationByOrgNo")
-    public Result getOrganizationByOrgNo(String orgNo){
-        log.info("接收到请求：根据orgNo查询机构。orgNo="+orgNo);
-        return organizationService.getOrganizationByKV("orgNo",orgNo);
+
+    @RequestMapping("/insertorganization")
+    public Result insertOrganization(@RequestBody Organization organization) {
+        log.info("接收到新增机构请求：" + organization.toString());
+        return organizationService.insertOrganization(organization);
     }
-    @RequestMapping("/getOrganizationByOrgName")
-    public Result getOrganizationByOrgName(String orgName){
-        log.info("接收到请求：根据orgName查询机构。orgName="+orgName);
-        return organizationService.getOrganizationByKV("orgName",orgName);
+
+    @RequestMapping("/updateorganization")
+    public Result updateOrganization(@RequestBody Organization organization) {
+        log.info("接收到更新机构请求：" + organization.toString());
+        return organizationService.updateOrganization(organization);
     }
-    @RequestMapping("/getOrganizationByHigherOrgId")
-    public Result getOrganizationByHigherOrgId(String higherOrgId){
-        log.info("接收到请求：根据higherOrgId查询机构。higherOrgId="+higherOrgId);
-        return organizationService.getOrganizationByKV("higherOrgId",higherOrgId);
-    }
-    @RequestMapping("/getOrganizationByOrgHeaderId")
-    public Result getOrganizationByOrgHeaderId(String orgHeaderId){
-        log.info("接收到请求：根据orgHeaderId查询机构。orgHeaderId="+orgHeaderId);
-        return organizationService.getOrganizationByKV("orgHeaderId",orgHeaderId);
+
+    @RequestMapping("/deleteorganization")
+    public Result deleteOrganization(@RequestBody JSONObject jsonParam) {
+        log.info("接收到删除机构请求：id=" + jsonParam.getString("id"));
+        return organizationService.deleteOrganization(jsonParam.getString("id"));
     }
 }

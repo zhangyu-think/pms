@@ -4,6 +4,7 @@ import com.mchange.v2.c3p0.ComboPooledDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
+
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
 
@@ -17,9 +18,10 @@ public class DataSourceConfiguration {
     private String username;
     @Value("${spring.datasource.password}")
     private String password;
+
     @Bean
-    public DataSource createDataSource() throws PropertyVetoException{
-        ComboPooledDataSource dataSource =new ComboPooledDataSource();
+    public DataSource createDataSource() throws PropertyVetoException {
+        ComboPooledDataSource dataSource = new ComboPooledDataSource();
         dataSource.setDriverClass(driver);
         dataSource.setJdbcUrl(url);
         dataSource.setUser(username);

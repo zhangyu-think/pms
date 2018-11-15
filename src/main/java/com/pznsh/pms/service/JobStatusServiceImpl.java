@@ -15,15 +15,9 @@ import java.util.List;
 public class JobStatusServiceImpl implements JobStatusService {
     @Autowired
     private JobStatusDao jobStatusDao;
+
     @Override
     public Result getAllJobStatus() {
-        Result result=null;
-        try{
-            List<JobStatus> jobStatusList=jobStatusDao.getAllJobStatus();
-            result= ReturnResult.success(jobStatusList);
-        }catch (Exception ex){
-            result=ReturnResult.failed(-1,"查询失败");
-        }
-        return result;
+        return ReturnResult.success(jobStatusDao.getAllJobStatus());
     }
 }

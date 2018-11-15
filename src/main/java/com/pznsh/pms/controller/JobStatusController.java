@@ -8,14 +8,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/JobStatus")
+@RequestMapping("/jobstatus")
 @Slf4j
 public class JobStatusController {
     @Autowired
     private JobStatusService jobStatusService;
-    @RequestMapping("/getAllJobStatus")
+    @RequestMapping("/getalljobstatus")
     public Result getAllJobStatus(){
         log.info("接收到请求：查询所有在职状态");
         return jobStatusService.getAllJobStatus();
+    }
+    @RequestMapping("/getjobstatusbykv")
+    public Result getJobStatusByKV(String key, String value){
+        return jobStatusService.getAllJobStatus();
+
     }
 }

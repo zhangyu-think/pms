@@ -1,9 +1,15 @@
 package com.pznsh.pms.service;
 
+import com.pznsh.pms.dao.PeopleProvider;
+import com.pznsh.pms.domain.People;
 import com.pznsh.pms.util.Result;
-
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.InsertProvider;
+import org.apache.ibatis.annotations.UpdateProvider;
 
 public interface PeopleService {
+    // 获取所有人员
+    Result getAllPeople();
     /**
      * 根据指定的KV进行查询人员，比如where key=value
      * @param key  比如id，idNumber等查询条件
@@ -11,10 +17,7 @@ public interface PeopleService {
      * @return
      */
     Result getPeopleByKV(String key,String value);
-    Result getAllPeople();
-//    Result getPeopleById(Integer id);
-//    Result getPeopleByIdNumber(String idNumber);
-//    Result getPeopleByWorkNumber1(String workNumber1);
-//    Result getPeopleByWorkNumber2(String workNumber2);
-//    Result getPeopleByName(String name);
+    Result insertPeople(People people);
+    Result updatePeople(People people);
+    Result deletePeople(String id);
 }

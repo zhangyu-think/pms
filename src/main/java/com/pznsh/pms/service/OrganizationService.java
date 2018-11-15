@@ -2,9 +2,6 @@ package com.pznsh.pms.service;
 
 import com.pznsh.pms.domain.Organization;
 import com.pznsh.pms.util.Result;
-import org.apache.ibatis.annotations.Select;
-
-import java.util.List;
 
 public interface OrganizationService {
     //查询所有机构
@@ -16,4 +13,7 @@ public interface OrganizationService {
      * @return
      */
     Result getOrganizationByKV(String key,String value);
+    Result insertOrganization(Organization Organization);
+    Result updateOrganization(Organization Organization);
+    Result deleteOrganization(String id);
 }

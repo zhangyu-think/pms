@@ -10,8 +10,9 @@ import javax.sql.DataSource;
 public class SessionFactoryConfiguration {
     @Autowired
     private DataSource dataSource;
-    public SqlSessionFactoryBean createSqlSessionFactory(){
-        SqlSessionFactoryBean factoryBean=new SqlSessionFactoryBean();
+
+    public SqlSessionFactoryBean createSqlSessionFactory() {
+        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
         return factoryBean;
     }
