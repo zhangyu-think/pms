@@ -7,19 +7,21 @@ import java.lang.reflect.Field;
 
 public class OrganizationProvider {
     public String getOrganizationByKV(String key,String value) {
-        String result = "select * from Organization where " + key + " like '%" + value + "%'";
+        String result = "select * from organization where " + key + " like '%" + value + "%'";
         return result;
     }
     // 获取类的所有字段，拼接出insert语句
     public String insertOrganization(Organization organization) {
         String result = null;
-        String sql1="insert into Organization(";
+        String sql1="insert into organization(";
         String sql2="values(";
         // 获取所有字段
         Field[] fields= ReflectHander.getField(organization);
         for (Field f : fields){
-            sql1=sql1 + f.getName() + ",";
-            sql2=sql2+ "#{" + f.getName() + "},";
+            if (StringHader.isValueEqual(f.getName(),"id")==false){
+                sql1=sql1 + f.getName() + ",";
+                sql2=sql2+ "#{" + f.getName() + "},";
+            }
         }
         sql1=sql1.substring(0,sql1.length() -1);
         sql2=sql2.substring(0,sql2.length() -1);
@@ -28,7 +30,7 @@ public class OrganizationProvider {
     }
     // 获取类的所有字段，拼接出update语句
     public String updateOrganization(Organization organization) {
-        String result = "update Organization set ";
+        String result = "update organization set ";
         // 获取所有字段
         Field[] fields= ReflectHander.getField(organization);
         for (Field f : fields){

@@ -2,15 +2,19 @@ package com.pznsh.pms.service;
 
 import com.pznsh.pms.dao.PeopleDao;
 import com.pznsh.pms.domain.People;
+import com.pznsh.pms.domain.PeopleWithDes;
 import com.pznsh.pms.util.Result;
 import com.pznsh.pms.util.ReturnResult;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Arrays;
+import java.util.List;
 
 @Service
 @MapperScan("com.pznsh.pms.dao")
+@Slf4j
 public class PeopleServiceImpl implements PeopleService {
     @Autowired
     private PeopleDao peopleDao;
@@ -29,14 +33,35 @@ public class PeopleServiceImpl implements PeopleService {
         }else if (!Arrays.asList(allowKey).contains(key)) {
             return ReturnResult.failed(-1, "K值非法或不被允许");
         }else{
-            return ReturnResult.success(peopleDao.getPeopleByKV(key,value));
+            List<People> peopleList=peopleDao.getPeopleByKV(key,value);
+            log.info("查询到人员数量："+peopleList.size());
+            return ReturnResult.success(peopleList);
         }
     }
+
+    @Override
+    public Result getAllPeopleWithDes() {
+        return ReturnResult.success(peopleDao.getAllPeopleWithDes());
+    }
+
+    @Override
+    public Result getPeopleWithDesByKV(String key, String value) {
+        if (key==null||key.equalsIgnoreCase("")||value==null||value.equalsIgnoreCase("")){
+            return ReturnResult.failed(-1,"KV键值对不全");
+        }else if (!Arrays.asList(allowKey).contains(key)) {
+            return ReturnResult.failed(-1, "K值非法或不被允许");
+        }else{
+            List<PeopleWithDes> peopleList=peopleDao.getPeopleWithDesByKV(key,value);
+            log.info("查询到人员数量："+peopleList.size());
+            return ReturnResult.success(peopleList);
+        }
+    }
+
     @Override
     public Result insertPeople(People people) {
-        if (peopleDao.getPeopleByKV("id",people.getId().toString()).size()>0){
-            return ReturnResult.failed(-1,"该id已存在，不允许重复");
-        }
+//        if (peopleDao.getPeopleByKV("id",people.getId().toString()).size()>0){
+//            return ReturnResult.failed(-1,"该id已存在，不允许重复");
+//        }
         if (peopleDao.insertPeople(people)>0){
             return ReturnResult.success("插入成功");
         }else{

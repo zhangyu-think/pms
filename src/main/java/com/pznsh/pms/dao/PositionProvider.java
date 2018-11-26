@@ -8,20 +8,22 @@ import java.lang.reflect.Field;
 
 public class PositionProvider {
     public String getPositionByKV(String key, String value) {
-        String result = "select * from Position where " + key + " like '%" + value + "%'";
+        String result = "select * from position where " + key + " like '%" + value + "%'";
         return result;
     }
 
     // 获取类的所有字段，拼接出insert语句
     public String insertPosition(Position position) {
         String result = null;
-        String sql1 = "insert into Position(";
+        String sql1 = "insert into position(";
         String sql2 = "values(";
         // 获取所有字段
         Field[] fields = ReflectHander.getField(position);
         for (Field f : fields) {
-            sql1 = sql1 + f.getName() + ",";
-            sql2 = sql2 + "#{" + f.getName() + "},";
+            if (StringHader.isValueEqual(f.getName(), "id") == false) {
+                sql1 = sql1 + f.getName() + ",";
+                sql2 = sql2 + "#{" + f.getName() + "},";
+            }
         }
         sql1 = sql1.substring(0, sql1.length() - 1);
         sql2 = sql2.substring(0, sql2.length() - 1);
@@ -31,7 +33,7 @@ public class PositionProvider {
 
     // 获取类的所有字段，拼接出update语句
     public String updatePosition(Position position) {
-        String result = "update Position set ";
+        String result = "update position set ";
         // 获取所有字段
         Field[] fields = ReflectHander.getField(position);
         for (Field f : fields) {

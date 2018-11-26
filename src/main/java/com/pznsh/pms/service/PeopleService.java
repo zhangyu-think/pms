@@ -17,6 +17,8 @@ public interface PeopleService {
      * @return
      */
     Result getPeopleByKV(String key,String value);
+    Result getAllPeopleWithDes();
+    Result getPeopleWithDesByKV(String key,String value);
     Result insertPeople(People people);
     Result updatePeople(People people);
     Result deletePeople(String id);

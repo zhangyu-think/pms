@@ -31,6 +31,17 @@ public class PeopleController {
         log.info("接收到查询人员请求：key=" + jsonParam.getString("key") + "&value=" + jsonParam.getString("value"));
         return peopleService.getPeopleByKV(jsonParam.getString("key"), jsonParam.getString("value"));
     }
+    @RequestMapping("/getallpeoplewithdes")
+    public Result getAllPeopleWithDes() {
+        log.info("接收到查询人员请求：查询所有人员");
+        return peopleService.getAllPeopleWithDes();
+    }
+
+    @RequestMapping("/getpeoplewithdesbykv")
+    public Result getPeopleWithDesByKV(@RequestBody JSONObject jsonParam) {
+        log.info("接收到查询人员请求：key=" + jsonParam.getString("key") + "&value=" + jsonParam.getString("value"));
+        return peopleService.getPeopleWithDesByKV(jsonParam.getString("key"), jsonParam.getString("value"));
+    }
 
     @RequestMapping("/insertpeople")
     public Result insertPeople(@RequestBody People people) {

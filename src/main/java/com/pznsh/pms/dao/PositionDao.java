@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface PositionDao {
     //查询所有职位
-    @Select("select * from Position")
+    @Select("select * from position")
     List<Position> getAllPosition();
 
     //使用PositionProvider类的getHouseRentByKV方法来生成sql
@@ -24,6 +24,6 @@ public interface PositionDao {
     @UpdateProvider(type = PositionProvider.class, method = "updatePosition")
     int updatePosition(Position position);
 
-    @Delete("delete from Position where id=#{id}")
+    @Delete("delete from position where id=#{id}")
     int deletePosition(String id);
 }

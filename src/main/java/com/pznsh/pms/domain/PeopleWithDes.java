@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class People {
+public class PeopleWithDes {
     //唯一标识
     private Integer id;
     //身份证号
@@ -41,8 +41,12 @@ public class People {
     private String email2;
     //机构编号
     private Integer orgId;
+    //机构名称
+    private String orgName;
     //职位编号
     private Integer posId;
+    //职位名称
+    private String posName;
     //最后编辑时间
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     private String editTime;
@@ -50,4 +54,6 @@ public class People {
     private Integer sortId;
     //在职状态Id
     private Integer jsId;
+    //在职状态名称
+    private String jsName;
 }

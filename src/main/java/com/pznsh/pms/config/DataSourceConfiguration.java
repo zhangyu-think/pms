@@ -30,6 +30,8 @@ public class DataSourceConfiguration {
         dataSource.setInitialPoolSize(10);
         dataSource.setMinPoolSize(10);
         dataSource.setMaxPoolSize(100);
+        // 设置每多少秒检查所有连接池中的空闲连接
+        dataSource.setMaxIdleTime(3600);
         return dataSource;
     }
 }

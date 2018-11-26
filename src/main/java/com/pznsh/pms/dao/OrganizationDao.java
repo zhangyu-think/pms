@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface OrganizationDao {
     //查询所有人员
-    @Select("select * from Organization")
+    @Select("select * from organization")
     List<Organization> getAllOrganization();
     //使用OrganizationProvider类的getHouseRentByKV方法来生成sql
     @SelectProvider(type = OrganizationProvider.class, method = "getOrganizationByKV")
@@ -20,6 +20,6 @@ public interface OrganizationDao {
     int insertOrganization(Organization Organization);
     @UpdateProvider(type = OrganizationProvider.class, method="updateOrganization")
     int updateOrganization(Organization Organization);
-    @Delete("delete from Organization where id=#{id}")
+    @Delete("delete from organization where id=#{id}")
     int deleteOrganization(String id);
 }
